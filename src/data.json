@@ -1,0 +1,27 @@
+{
+  "myTeam": "Α.Ο.ΚΟΣΜΗΡΑΣ",
+  "nextMatch": {
+    "opponent": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",
+    "date": "Σάββατο 14/03/2026",
+    "time": "17:00"
+  },
+  "totalRounds": 28,
+  "relegationZone": 4,
+  "teams": [
+    { "name": "Π.Α.Σ.ΚΑΣΤΡΟΥ",         "points": 36, "played": 15, "wins": 11, "draws": 3, "losses": 1,  "gf": 34, "ga": 7  },
+    { "name": "Α.Ε. ΓΙΑΝΝΕΝΑ 2004",     "points": 33, "played": 15, "wins": 10, "draws": 3, "losses": 2,  "gf": 42, "ga": 17 },
+    { "name": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",  "points": 32, "played": 15, "wins": 10, "draws": 2, "losses": 3,  "gf": 35, "ga": 20 },
+    { "name": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",        "points": 30, "played": 15, "wins": 9,  "draws": 3, "losses": 3,  "gf": 35, "ga": 14 },
+    { "name": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",    "points": 27, "played": 14, "wins": 8,  "draws": 3, "losses": 3,  "gf": 29, "ga": 15 },
+    { "name": "Π.Α.Σ.ΠΕΡΙΒΛΕΠΤΟΥ",     "points": 24, "played": 15, "wins": 6,  "draws": 6, "losses": 3,  "gf": 28, "ga": 21 },
+    { "name": "Α.Σ.ΝΕΟΚΑΙΣΑΡΕΙΑΣ",     "points": 24, "played": 15, "wins": 7,  "draws": 3, "losses": 5,  "gf": 25, "ga": 21 },
+    { "name": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",        "points": 18, "played": 15, "wins": 5,  "draws": 3, "losses": 7,  "gf": 19, "ga": 28 },
+    { "name": "Α.Ε.ΠΛΑΤΑΝΙΑΣ",         "points": 18, "played": 15, "wins": 5,  "draws": 3, "losses": 7,  "gf": 25, "ga": 23 },
+    { "name": "Α.Ε.ΔΑΦΝΟΥΛΑΣ",         "points": 17, "played": 15, "wins": 5,  "draws": 2, "losses": 8,  "gf": 21, "ga": 35 },
+    { "name": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",      "points": 16, "played": 15, "wins": 4,  "draws": 4, "losses": 7,  "gf": 27, "ga": 31 },
+    { "name": "ΗΦΑΙΣΤΟΣ ΑΒΓΟΥ 2020",   "points": 13, "played": 15, "wins": 3,  "draws": 4, "losses": 8,  "gf": 18, "ga": 37 },
+    { "name": "Α.Ο.ΚΟΣΜΗΡΑΣ",          "points": 8,  "played": 15, "wins": 1,  "draws": 5, "losses": 9,  "gf": 14, "ga": 31 },
+    { "name": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",       "points": 6,  "played": 15, "wins": 1,  "draws": 3, "losses": 11, "gf": 14, "ga": 39 },
+    { "name": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ",    "points": 1,  "played": 15, "wins": 3,  "draws": 1, "losses": 11, "gf": 12, "ga": 39 }
+  ]
+}
