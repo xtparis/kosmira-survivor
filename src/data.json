@@ -1,10 +1,10 @@
 {
   "myTeam": "Α.Ο.ΚΟΣΜΗΡΑΣ",
-  "nextMatch": {
-  "opponent": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",
-  "date": "Σάββατο 14/03/2026",
-  "time": "16:30",
-  "venue": "ΑΓΙΑ ΣΟΦΙΑ"
+  "nextMatch": { 
+    "opponent": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",
+    "date": "Σάββατο 14/03/2026",
+    "time": "16:30",
+    "venue": "ΑΓΙΑ ΣΟΦΙΑ"
 },
   "totalRounds": 28,
   "relegationZone": 4,
