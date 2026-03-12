@@ -33,7 +33,7 @@ function PointsDisplay({ value, color }) {
   const animated = useAnimatedNumber(value)
   return (
     <div className="points-big" style={{ color }}>
-      {animated}
+      +{animated}
     </div>
   )
 }
@@ -79,20 +79,20 @@ function MainCard({ scenario, calc }) {
       </div>
 
       <PointsDisplay value={needed} color={accentColor} />
-      <div className="points-label">βαθμοί για σωτηρία</div>
+      <div className="points-label">βαθμοί ακόμα για σωτηρία</div>
 
       <div className="stats-row">
         <div className="stat">
           <span className="stat-val">{myTeam.points}</span>
-          <span className="stat-lbl">Τρέχοντες</span>
+          <span className="stat-lbl">Έχουμε Τώρα</span>
         </div>
         <div className="stat">
           <span className="stat-val">{remaining}</span>
-          <span className="stat-lbl">Αγώνες</span>
+          <span className="stat-lbl">Αγώνες Ακόμα</span>
         </div>
         <div className="stat">
           <span className="stat-val">{maxPossible}</span>
-          <span className="stat-lbl">Μέγιστοι</span>
+          <span className="stat-lbl">Μέγιστοι </span>
         </div>
       </div>
 
@@ -103,8 +103,7 @@ function MainCard({ scenario, calc }) {
 
 function StatusCard({ calc }) {
   const { myPos, totalTeams, myTeam, safetyTeam, isSafe } = calc
-  const gap = safetyTeam.points - myTeam.points
-
+  const gap = myTeam.points - safetyTeam.points
   return (
     <div className="card status-card">
       <div className="status-left">
@@ -135,7 +134,7 @@ function NextMatchCard({ nextMatch }) {
     <div className="card next-match-card">
       <div className="match-tag">⚽ Επόμενος Αγώνας</div>
       <div className="match-opponent">{nextMatch.opponent}</div>
-      <div className="match-when">{nextMatch.date} &bull; {nextMatch.time}</div>
+      <div className="match-when">{nextMatch.date} &bull; {nextMatch.time} &bull; 📍{nextMatch.venue}</div>
     </div>
   )
 }
@@ -198,7 +197,7 @@ export default function App() {
         <header>
           <div className="header-eyebrow">Ερασιτεχνικό Πρωτάθλημα</div>
           <h1 className="header-title">Α.Ο. ΚΟΣΜΗΡΑΣ</h1>
-          <div className="header-sub">Survival Tracker</div>
+          <div className="header-sub">Survivor Mission 2026</div>
         </header>
 
         <ScenarioSwitcher active={scenario} onChange={setScenario} />
