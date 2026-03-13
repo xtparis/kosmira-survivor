@@ -196,8 +196,7 @@ export default function App() {
   const calc = calcScenarios(data)
 
   return (
-    <div className="app">
-      <div className="bg-grid" />
+      <div className="app" style={{ backgroundImage: `url(${import.meta.env.BASE_URL}bg.jpg)` }}>      <div className="bg-grid" />
       <div className="container">
         <header>
           <div className="header-eyebrow">Ερασιτεχνικό Πρωτάθλημα</div>

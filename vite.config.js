@@ -4,5 +4,5 @@ import react from '@vitejs/plugin-react'
 // ΣΗΜΑΝΤΙΚΟ: Άλλαξε το 'kosmiras-tracker' με το όνομα του GitHub repository σου
 export default defineConfig({
   plugins: [react()],
-  base: '/',
+  base: process.env.VITE_BASE_PATH || '/',
 })

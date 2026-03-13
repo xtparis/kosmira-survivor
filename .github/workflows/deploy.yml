@@ -12,6 +12,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+        env:
+          VITE_BASE_PATH: /kosmira-survivor/
       - run: npm install
       - run: npm run build
       - uses: peaceiris/actions-gh-pages@v4
