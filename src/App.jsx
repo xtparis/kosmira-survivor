@@ -5,8 +5,8 @@ import './App.css'
 
 const SCENARIOS = [
   { key: 'base',  label: '📊 Κύριο Σενάριο',    color: 'var(--green)' },
-  { key: 'worst', label: '🔴 Χειρότερο', color: 'var(--red)'   },
-  { key: 'best',  label: '🔵 Καλύτερο',  color: 'var(--blue)'  },
+  { key: 'worst', label: '🔴 Πουτάνα Όλα', color: 'var(--red)'   },
+  { key: 'best',  label: '🔵 Κωλοφαρδία',  color: 'var(--blue)'  },
 ]
 
 function useAnimatedNumber(target) {
@@ -75,7 +75,7 @@ function MainCard({ scenario, calc }) {
     <div className="card main-card" style={{ '--accent': accentColor }}>
       <div className="card-accent-line" />
       <div className="scenario-tag">
-        {SCENARIOS.find(s => s.key === scenario).label.replace(/^[^ ]+ /, '')} Σενάριο
+        {SCENARIOS.find(s => s.key === scenario).label.replace(/^[^ ]+ /, '')}
       </div>
 
       <PointsDisplay value={needed} color={accentColor} />
