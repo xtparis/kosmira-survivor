@@ -4,7 +4,7 @@ import { calcScenarios } from './calc.js'
 import './App.css'
 
 const SCENARIOS = [
-  { key: 'base',  label: '📊 Βασικό',    color: 'var(--green)' },
+  { key: 'base',  label: '📊 Κύριο Σενάριο',    color: 'var(--green)' },
   { key: 'worst', label: '🔴 Χειρότερο', color: 'var(--red)'   },
   { key: 'best',  label: '🔵 Καλύτερο',  color: 'var(--blue)'  },
 ]
@@ -96,7 +96,9 @@ function MainCard({ scenario, calc }) {
         </div>
       </div>
 
-      <p className="scenario-desc">{sc.desc}</p>
+      <p className="scenario-desc">
+        {sc.desc}
+      </p>
     </div>
   )
 }
@@ -118,11 +120,11 @@ function StatusCard({ calc }) {
         </div>
       </div>
       <div className="status-right">
-        <div className="gap-val" style={{ color: gap > 0 ? 'var(--yellow)' : 'var(--green)' }}>
-          {gap > 0 ? `+${gap}` : '✓'}
+        <div className="gap-val" style={{ color: gap >= 0 ? 'var(--green)' : 'var(--yellow)' }}>
+          {gap >= 0 ? `+${gap}` : gap}
         </div>
         <div className="gap-lbl">
-          {gap > 0 ? `βαθμοί από ${safetyTeam.name.split('.').pop().trim()}` : 'Πάνω από τη γραμμή'}
+          {gap >= 0 ? 'πάνω από τη ζώνη' : `βαθμοί από ${safetyTeam.name.split('.').pop().trim()}`}
         </div>
       </div>
     </div>
@@ -132,9 +134,12 @@ function StatusCard({ calc }) {
 function NextMatchCard({ nextMatch }) {
   return (
     <div className="card next-match-card">
-      <div className="match-tag">⚽ Επόμενος Αγώνας</div>
-      <div className="match-opponent">{nextMatch.opponent}</div>
-      <div className="match-when">{nextMatch.date} &bull; {nextMatch.time} &bull; 📍{nextMatch.venue}</div>
+      <div>
+        <div className="match-tag">⚽ Επόμενος Αγώνας</div>
+        <div className="match-opponent">{nextMatch.opponent}</div>
+        <div className="match-when">{nextMatch.date} &bull; {nextMatch.time} &bull; 📍{nextMatch.venue}</div>
+      </div>
+      <div className="match-vs">💪 VAMOS!</div>
     </div>
   )
 }

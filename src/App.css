@@ -166,7 +166,7 @@ header {
 }
 
 .scenario-desc {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   line-height: 1.7;
   margin-top: 18px;
@@ -237,16 +237,14 @@ header {
 
 /* ── Next Match Card ─────────────────────────────────── */
 .next-match-card {
-  border-left: 3px solid var(--yellow);
-  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(17, 160, 141, 0.35);
 }
 
 .match-tag {
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--yellow);
-  margin-bottom: 8px;
+  color: var(--electric);
 }
 
 .match-opponent {
@@ -257,10 +255,16 @@ header {
 }
 
 .match-when {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   margin-top: 4px;
 }
+
+.match-vs {
+  color: var(--electric);
+  font-size: 22px;
+}
+
 
 /* ── League Table ────────────────────────────────────── */
 .table-wrap {
@@ -268,7 +272,7 @@ header {
 }
 
 .section-title {
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--muted);
@@ -281,7 +285,7 @@ header {
 }
 
 .league-table thead th {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--muted);
@@ -335,9 +339,9 @@ header {
 }
 
 /* My team row */
-.row-me td { background: rgba(0, 230, 118, 0.04); }
-.row-me .col-name { color: var(--green); }
-.row-me .col-pts  { color: var(--green); }
+.row-me td { background: rgba(255, 214, 0, 0.04); }
+.row-me .col-name { color: var(--yellow); }
+.row-me .col-pts  { color: var(--yellow); }
 
 /* Relegated rows */
 .row-rel .col-name { color: var(--red); opacity: 0.7; }
@@ -353,7 +357,7 @@ header {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--green);
+  background: var(--yellow);
   flex-shrink: 0;
 }
 

@@ -1,23 +1,20 @@
 /**
  * Υπολογίζει βαθμολογία από τα fixtures και τα 3 σενάρια σωτηρίας.
+ * - Βασικό: Monte Carlo simulation (10.000 επαναλήψεις)
+ * - Χειρότερο: deterministic, ευνοεί τις ομάδες πάνω από εμάς
+ * - Καλύτερο: deterministic, ευνοεί εμάς
  */
+import simResult from './simulation-result.json'
+const SIMULATIONS = 10000
 
-function getTeamNames(fixtures) {
-  const names = new Set()
-  fixtures.forEach(f => { names.add(f.home); names.add(f.away) })
-  return [...names]
-}
-
-function calcStandings(fixtures) {
+// ─── Βαθμολογία από fixtures ─────────────────────────────────────────────────
+export function calcStandings(fixtures) {
   const stats = {}
 
-  // Αρχικοποίηση όλων των ομάδων
-  getTeamNames(fixtures).forEach(name => {
-    stats[name] = { name, points: 0, played: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0 }
-  })
-
-  // Επεξεργασία αποτελεσμάτων
   fixtures.forEach(f => {
+    if (!stats[f.home]) stats[f.home] = { name: f.home, points: 0, played: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0 }
+    if (!stats[f.away]) stats[f.away] = { name: f.away, points: 0, played: 0, wins: 0, draws: 0, losses: 0, gf: 0, ga: 0 }
+
     if (f.homeGoals === null || f.awayGoals === null) return
 
     const h = stats[f.home]
@@ -28,25 +25,145 @@ function calcStandings(fixtures) {
     a.gf += f.awayGoals; a.ga += f.homeGoals
 
     if (f.homeGoals > f.awayGoals) {
-      h.wins++; h.points += 3
-      a.losses++
+      h.wins++; h.points += 3; a.losses++
     } else if (f.homeGoals < f.awayGoals) {
-      a.wins++; a.points += 3
-      h.losses++
+      a.wins++; a.points += 3; h.losses++
     } else {
-      h.draws++; h.points++
-      a.draws++; a.points++
+      h.draws++; h.points++; a.draws++; a.points++
     }
   })
 
-  return Object.values(stats).sort((a, b) => {
-    if (b.points !== a.points) return b.points - a.points
-    return (b.gf - b.ga) - (a.gf - a.ga)
-  })
+  return Object.values(stats).sort((a, b) =>
+    b.points !== a.points ? b.points - a.points : (b.gf - b.ga) - (a.gf - a.ga)
+  )
 }
 
+// ─── Πιθανότητες ομάδας βάσει ιστορικού ─────────────────────────────────────
+function getTeamProbs(team) {
+  if (!team || team.played === 0) return { win: 0.33, draw: 0.33, loss: 0.34 }
+  return {
+    win:  team.wins   / team.played,
+    draw: team.draws  / team.played,
+    loss: team.losses / team.played,
+  }
+}
+
+// ─── Προσομοίωση ενός ματς ───────────────────────────────────────────────────
+function simulateMatch(homeTeam, awayTeam) {
+  const hp = getTeamProbs(homeTeam)
+  const ap = getTeamProbs(awayTeam)
+
+  const pHomeWin = (hp.win  + ap.loss) / 2
+  const pDraw    = (hp.draw + ap.draw) / 2
+
+  const r = Math.random()
+  if (r < pHomeWin) return 'home'
+  if (r < pHomeWin + pDraw) return 'draw'
+  return 'away'
+}
+
+// ─── Χειρότερο σενάριο ───────────────────────────────────────────────────────
+// Ευνοεί τις ομάδες πάνω από εμάς:
+// - Ομάδα safe vs ζώνη → κερδίζει η safe
+// - Μεταξύ ομάδων ζώνης → κερδίζει η υψηλότερη (ανεβαίνουν οι πιο ψηλά)
+// - Μεταξύ safe ομάδων → ισοπαλία (δεν επηρεάζει)
+function calcWorstCase(standings, pendingFixtures, myTeamName, safePos) {
+  const pts = {}
+  standings.forEach(t => { pts[t.name] = t.points })
+
+  pendingFixtures.forEach(f => {
+    const homePos = standings.findIndex(t => t.name === f.home) + 1
+    const awayPos = standings.findIndex(t => t.name === f.away) + 1
+    const homeInZone = homePos > safePos
+    const awayInZone = awayPos > safePos
+    if (homeInZone && !awayInZone) {
+      if (f.home === myTeamName) {
+        // Εμείς vs safe → χάνουμε
+        pts[f.away] += 3
+      } else {
+        pts[f.home] += 3
+      }
+    } else if (!homeInZone && awayInZone) {
+      if (f.away === myTeamName) {
+        // Safe vs εμείς → χάνουμε
+        pts[f.home] += 3
+      } else {
+        pts[f.away] += 3
+      }
+    } else if (homeInZone && awayInZone) {
+      if (f.home === myTeamName) {
+        pts[f.away] += 3
+      } else if (f.away === myTeamName) {
+        pts[f.home] += 3
+      } else {
+        // Μεταξύ ζώνης → κερδίζει η χαμηλότερη
+        if (homePos > awayPos) pts[f.home] += 3
+        else pts[f.away] += 3
+      }
+    } else {
+      pts[f.home] += 1; pts[f.away] += 1
+    }
+  })
+
+  const finalStandings = Object.entries(pts)
+    .map(([name, points]) => ({ name, points }))
+    .sort((a, b) => b.points - a.points)
+
+  const safetyLine = finalStandings[safePos - 1].points
+  const myPoints = pts[myTeamName]
+
+  return {
+    needed: Math.max(0, safetyLine - myPoints),
+    safetyLine,
+    myFinalPoints: myPoints,
+  }
+}
+
+// ─── Καλύτερο σενάριο ────────────────────────────────────────────────────────
+// Ευνοεί εμάς:
+// - Ομάδα safe vs ζώνη → κερδίζει η safe (ρεαλιστικό)
+// - Μεταξύ ομάδων ζώνης → κερδίζει η χαμηλότερη (μένουν χαμηλά)
+// - Μεταξύ safe ομάδων → ισοπαλία
+function calcBestCase(standings, pendingFixtures, myTeamName, safePos) {
+  const pts = {}
+  standings.forEach(t => { pts[t.name] = t.points })
+
+  pendingFixtures.forEach(f => {
+    const homePos = standings.findIndex(t => t.name === f.home) + 1
+    const awayPos = standings.findIndex(t => t.name === f.away) + 1
+    const homeIsSafe = homePos <= safePos
+    const awayIsSafe = awayPos <= safePos
+
+    if (homeIsSafe && !awayIsSafe) {
+      pts[f.home] += 3
+    } else if (!homeIsSafe && awayIsSafe) {
+      pts[f.away] += 3
+    } else if (!homeIsSafe && !awayIsSafe) {
+      // Μεταξύ ζώνης: κερδίζει η χαμηλότερη (μένουν χαμηλά)
+      if (homePos > awayPos) pts[f.home] += 3
+      else pts[f.away] += 3
+    } else {
+      pts[f.home] += 1; pts[f.away] += 1
+    }
+  })
+
+  const finalStandings = Object.entries(pts)
+    .map(([name, points]) => ({ name, points }))
+    .sort((a, b) => b.points - a.points)
+
+  const safetyLine = finalStandings[safePos - 1].points
+  const myPoints = pts[myTeamName]
+
+  return {
+    needed: Math.max(0, safetyLine - myPoints),
+    safetyLine,
+    myFinalPoints: myPoints,
+  }
+}
+
+// ─── Κύρια συνάρτηση ─────────────────────────────────────────────────────────
 export function calcScenarios(data) {
-  const { totalRounds, relegationZone, fixtures, myTeam: myTeamName } = data
+  const { relegationZone, fixtures, myTeam: myTeamName } = data
 
   const sorted = calcStandings(fixtures)
   const myTeam = sorted.find(t => t.name === myTeamName)
@@ -54,29 +171,24 @@ export function calcScenarios(data) {
   const totalTeams = sorted.length
   const safePos = totalTeams - relegationZone
   const safetyTeam = sorted[safePos - 1]
-  const remaining = totalRounds - myTeam.played
 
-  // ─── ΣΕΝΑΡΙΟ 1: ΒΑΣΙΚΟ ──────────────────────────────────────────────────
-  const baseProjected = sorted.map(t => {
-    const rem = totalRounds - t.played
-    const rate = t.played > 0 ? t.points / t.played : 0
-    return { ...t, projected: Math.round(t.points + rate * rem) }
-  }).sort((a, b) => b.projected - a.projected)
+  // Υπόλοιπα ματς που αφορούν ομάδες που έχουν ακόμα αγώνες
+  const pendingFixtures = fixtures.filter(f => f.homeGoals === null || f.awayGoals === null)
 
-  const baseSafetyLine = baseProjected[safePos - 1].projected
-  const baseMyProjected = baseProjected.find(t => t.name === myTeamName).projected
-  const baseNeeded = Math.max(0, baseSafetyLine - myTeam.points + 1)
+  // Υπόλοιποι αγώνες της δικής μας ομάδας
+  const remaining = pendingFixtures.filter(f => f.home === myTeamName || f.away === myTeamName).length
+
   const baseRate = myTeam.played > 0 ? (myTeam.points / myTeam.played).toFixed(2) : '0.00'
 
-  // ─── ΣΕΝΑΡΙΟ 2: ΧΕΙΡΟΤΕΡΟ ───────────────────────────────────────────────
-  const worstSafetyRem = totalRounds - safetyTeam.played
-  const worstSafetyLine = safetyTeam.points + worstSafetyRem * 3
-  const worstNeeded = Math.min(remaining * 3, Math.max(0, worstSafetyLine - myTeam.points + 1))
-  const worstMathPossible = remaining * 3 >= worstNeeded
+  // ─── Monte Carlo ─────────────────────────────────────────────────────────
+  const mc = simResult  // αντί για runMonteCarlo(...)
+  const baseNeeded = Math.max(0, data.manualSafetyLine - myTeam.points)
 
-  // ─── ΣΕΝΑΡΙΟ 3: ΚΑΛΥΤΕΡΟ ────────────────────────────────────────────────
-  const bestSafetyLine = safetyTeam.points
-  const bestNeeded = Math.max(0, bestSafetyLine - myTeam.points + 1)
+  // ─── Worst / Best ─────────────────────────────────────────────────────────
+  const worst = calcWorstCase(sorted, pendingFixtures, myTeamName, safePos)
+  const best  = calcBestCase(sorted, pendingFixtures, myTeamName, safePos)
+  const bestNeeded = Math.min(best.needed, data.manualBestCase - myTeam.points)
+
 
   return {
     sorted,
@@ -90,21 +202,21 @@ export function calcScenarios(data) {
 
     base: {
       needed: baseNeeded,
-      safetyLine: baseSafetyLine,
-      myProjected: baseMyProjected,
+      safetyLine: data.manualSafetyLine,
+      simulatedSafetyLine: mc.avgSafetyLine,  // ← για το σχόλιο
+      survivalPct: mc.survivalPct,
       rate: baseRate,
-      desc: `Με τον τρέχοντα ρυθμό σου (${baseRate} βαθμοί/αγώνα), προβλέπονται ~${baseMyProjected} βαθμοί στο τέλος. Η γραμμή σωτηρίας εκτιμάται στους ~${baseSafetyLine} βαθμούς συνολικά.`,
+      desc: `Εκτίμηση: σωτηρία στους ${data.manualSafetyLine} βαθμούς. Έχει γίνει Simulation (${SIMULATIONS.toLocaleString()} επαναλήψεις) που βγάζει την ζώνη στους ~${mc.avgSafetyLine} βαθμούς. (${mc.survivalPct}% πιθανότητα σωτηρίας).`,
     },
     worst: {
-      needed: worstNeeded,
-      safetyLine: worstSafetyLine,
-      mathPossible: worstMathPossible,
-      desc: `Αν η 11η κερδίσει όλα τα υπόλοιπα, θα φτάσει τους ${worstSafetyLine} βαθμούς. ${worstMathPossible ? `Χρειάζεσαι ${worstNeeded} από ${remaining * 3} δυνατούς βαθμούς.` : 'Μαθηματικά αδύνατο να φτάσεις αυτή τη γραμμή.'}`,
+      needed: worst.needed,
+      safetyLine: worst.safetyLine,
+      desc: `Αν όλα πάνε σκατά και ξεκωλωθούν όλοι. Η ζώνη φτάνει στους ${worst.needed + myTeam.points} βαθμούς.`,
     },
     best: {
       needed: bestNeeded,
-      safetyLine: bestSafetyLine,
-      desc: `Αν η ${safetyTeam.name} δεν κερδίσει ξανά, η γραμμή σωτηρίας μένει στους ${bestSafetyLine} βαθμούς. Το μαθηματικό ελάχιστο που χρειάζεσαι.`,
+      safetyLine: best.safetyLine,
+      desc: `Καλύτερο πιθανό σενάριο. Υπολογίζουμε οτι όλοι εχουν +3 από το Δροσοχώρι. Αν κοιμηθεί ο θεός με ${bestNeeded + myTeam.points} βαθμούς σωνόμαστε.`,
     },
   }
 }
