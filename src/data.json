@@ -150,11 +150,11 @@
 
     { "round": 18, "home": "Α.Ε. ΓΙΑΝΝΕΝΑ 2004",    "away": "Α.Ε.ΔΑΦΝΟΥΛΑΣ",           "homeGoals": 2, "awayGoals": 0 },
     { "round": 18, "home": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",   "away": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ",      "homeGoals": 3, "awayGoals": 0 },
-    { "round": 18, "home": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",      "away": "Α.Ο.ΚΟΣΜΗΡΑΣ",            "homeGoals": null, "awayGoals": null },
+    { "round": 18, "home": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",      "away": "Α.Ο.ΚΟΣΜΗΡΑΣ",            "homeGoals": 3, "awayGoals": 2 },
     { "round": 18, "home": "Α.Ε.ΠΛΑΤΑΝΙΑΣ",         "away": "Π.Α.Σ.ΚΑΣΤΡΟΥ",           "homeGoals": 1, "awayGoals": 5 },
     { "round": 18, "home": "Π.Α.Σ.ΠΕΡΙΒΛΕΠΤΟΥ",     "away": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",        "homeGoals": 1, "awayGoals": 2 },
-    { "round": 18, "home": "Α.Σ.ΝΕΟΚΑΙΣΑΡΕΙΑΣ",     "away": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",   "homeGoals": null, "awayGoals": null },
-    { "round": 18, "home": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",        "away": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",         "homeGoals": null, "awayGoals": null },
+    { "round": 18, "home": "Α.Σ.ΝΕΟΚΑΙΣΑΡΕΙΑΣ",     "away": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",   "homeGoals": 1, "awayGoals": 1 },
+    { "round": 18, "home": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",        "away": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",         "homeGoals": 1, "awayGoals": 2 },
 
     { "round": 19, "home": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",  "away": "Α.Ε.ΠΛΑΤΑΝΙΑΣ",           "homeGoals": null, "awayGoals": null },
     { "round": 19, "home": "Π.Α.Σ.ΚΑΣΤΡΟΥ",         "away": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",         "homeGoals": null, "awayGoals": null },
