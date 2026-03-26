@@ -3,8 +3,8 @@
   min-height: 100vh;
   position: relative;
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-position: '60% center';
+  /* background-attachment: fixed; */
 }
 
 .app::before {

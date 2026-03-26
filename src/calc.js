@@ -8,7 +8,7 @@ import simResult from './simulation-result.json'
 const SIMULATIONS = 10000
 
 // ─── Βαθμολογία από fixtures ─────────────────────────────────────────────────
-export function calcStandings(fixtures) {
+export function calcStandings(fixtures, adjustments = []) {
   const stats = {}
 
   fixtures.forEach(f => {
@@ -31,6 +31,10 @@ export function calcStandings(fixtures) {
     } else {
       h.draws++; h.points++; a.draws++; a.points++
     }
+  })
+
+  adjustments.forEach(adj => {
+      if (stats[adj.team]) stats[adj.team].points += adj.points
   })
 
   return Object.values(stats).sort((a, b) =>
@@ -165,7 +169,7 @@ function calcBestCase(standings, pendingFixtures, myTeamName, safePos) {
 export function calcScenarios(data) {
   const { relegationZone, fixtures, myTeam: myTeamName } = data
 
-  const sorted = calcStandings(fixtures)
+  const sorted = calcStandings(fixtures, data.pointsAdjustments)
   const myTeam = sorted.find(t => t.name === myTeamName)
   const myPos = sorted.findIndex(t => t.name === myTeamName) + 1
   const totalTeams = sorted.length

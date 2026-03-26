@@ -251,5 +251,8 @@
     { "round": 30, "home": "Π.Α.Σ.ΠΕΡΙΒΛΕΠΤΟΥ",     "away": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",     "homeGoals": null, "awayGoals": null },
     { "round": 30, "home": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",        "away": "Α.Ε. ΓΙΑΝΝΕΝΑ 2004",      "homeGoals": null, "awayGoals": null },
     { "round": 30, "home": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",       "away": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",         "homeGoals": null, "awayGoals": null }
-  ]
+  ],
+  "pointsAdjustments": [
+  { "team": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ", "points": -9, "reason": "Τιμωρία" }
+]
 }

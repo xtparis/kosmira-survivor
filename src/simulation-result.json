@@ -1,7 +1,7 @@
 {
-  "simulatedAt": "2026-03-13T00:57:46.098Z",
+  "simulatedAt": "2026-03-13T01:03:23.865Z",
   "simulations": 10000,
-  "survivalPct": 5,
+  "survivalPct": 4,
   "avgSafetyLine": 30,
-  "avgMyPoints": 20
+  "avgMyPoints": 21
 }
