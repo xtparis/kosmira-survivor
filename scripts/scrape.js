@@ -11,70 +11,45 @@ const DATA_PATH = join(__dirname, '../src/data.json')
 const URL = 'https://epsip.gr/results/display_schedule.php?league_id=301'
 
 function cleanName(name) {
-  return name.replace(/\*\*/g, '').replace(/\[/g, '').replace(/\]/g, '').trim()
+  return name.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
 }
 
-// Βρίσκει το καλύτερο match μεταξύ scraped ονόματος και data.json
-function findTeam(scraped, teams) {
-  scraped = cleanName(scraped).toUpperCase()
-  // Exact match
-  let found = teams.find(t => t.toUpperCase() === scraped)
-  if (found) return found
-  // Partial match — τουλάχιστον 6 κοινοί χαρακτήρες
-  found = teams.find(t => {
-    const a = t.toUpperCase()
-    return a.includes(scraped.substring(0, 8)) || scraped.includes(a.substring(0, 8))
+function findFixture(fixtures, homeScraped, awayScraped) {
+  homeScraped = homeScraped.toUpperCase()
+  awayScraped = awayScraped.toUpperCase()
+
+  return fixtures.find(f => {
+    const fHome = f.home.toUpperCase()
+    const fAway = f.away.toUpperCase()
+    const homeMatch = fHome === homeScraped || fHome.includes(homeScraped.substring(0, 8)) || homeScraped.includes(fHome.substring(0, 8))
+    const awayMatch = fAway === awayScraped || fAway.includes(awayScraped.substring(0, 8)) || awayScraped.includes(fAway.substring(0, 8))
+    return homeMatch && awayMatch && f.homeGoals === null
   })
-  return found || null
 }
 
 async function scrape() {
   console.log('🔍 Fetching results from epsip.gr...')
 
   const res = await fetch(URL)
-  const text = await res.text()
-  // Βρες το κομμάτι με αγώνες
-  const idx = text.indexOf('1η Αγωνιστική')
-  console.log(text.substring(idx, idx + 2000))
-  
+  const html = await res.text()
+
   const data = JSON.parse(readFileSync(DATA_PATH, 'utf-8'))
-  const allTeams = [...new Set(data.fixtures.flatMap(f => [f.home, f.away]))]
   let updatedCount = 0
 
-  // Παρσάρουμε το markdown-like format που επιστρέφει το fetch
-  // Κάθε γραμμή ματς έχει: | ΟμάδαΑ - ΟμάδαΒ | ... | ΣΚΟΡ |
-  const lines = text.split('\n')
+  // Παρσάρουμε κάθε row του πίνακα
+  // Format: <tr><td>ΟμάδαΑ - <b>ΟμάδαΒ</b></td>...<td><b>X-Y</b></td></tr>
+  const rowRegex = /<tr[^>]*>.*?<td[^>]*>(?:<a[^>]*>)?(?:<b>)?([^<\-]+?)(?:<\/b>)?\s*-\s*(?:<b>)?([^<]+?)(?:<\/b>)?(?:<\/a>)?<\/td>.*?<td[^>]*>(?:<a[^>]*>)?(?:<b>)?(\d+)-(\d+)(?:\s*α\.α\.)?(?:<\/b>)?(?:<\/a>)?<\/td><\/tr>/gs
 
-  for (const line of lines) {
-    // Ψάχνουμε σκορ: | **X-Y** | ή | X-Y | ή | **X-Y α.α.** |
-    const scoreMatch = line.match(/\|\s*\*?\*?(\d+)-(\d+)(?:\s*α\.α\.|\s*a\.a\.)?\*?\*?\s*\|?\s*$/)
-    if (!scoreMatch) continue
+  let match
+  while ((match = rowRegex.exec(html)) !== null) {
+    const homeName = cleanName(match[1])
+    const awayName = cleanName(match[2])
+    const homeGoals = parseInt(match[3])
+    const awayGoals = parseInt(match[4])
 
-    const homeGoals = parseInt(scoreMatch[1])
-    const awayGoals = parseInt(scoreMatch[2])
+    if (homeName.length < 4 || awayName.length < 4) continue
 
-    // Ψάχνουμε ονόματα ομάδων: | ΟμάδαΑ - **ΟμάδαΒ** | ή | [ΟμάδαΑ - ΟμάδαΒ](link) |
-    const teamMatch = line.match(/\|\s*(?:\[)?\s*\*?\*?\s*(.+?)\s*\*?\*?\s*-\s*\*?\*?\s*(.+?)\s*\*?\*?\s*(?:\]\([^)]+\))?\s*\|/)
-    if (!teamMatch) continue
-
-    const homeScraped = cleanName(teamMatch[1])
-    const awayScraped = cleanName(teamMatch[2])
-
-    // Skip αν δεν μοιάζουν με ονόματα ομάδων
-    if (homeScraped.length < 4 || awayScraped.length < 4) continue
-
-    const homeName = findTeam(homeScraped, allTeams)
-    const awayName = findTeam(awayScraped, allTeams)
-
-    if (!homeName || !awayName) continue
-
-    // Βρίσκουμε το fixture που είναι ακόμα null
-    const fixture = data.fixtures.find(f =>
-      f.home === homeName &&
-      f.away === awayName &&
-      f.homeGoals === null
-    )
-
+    const fixture = findFixture(data.fixtures, homeName, awayName)
     if (fixture) {
       fixture.homeGoals = homeGoals
       fixture.awayGoals = awayGoals
