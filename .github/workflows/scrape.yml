@@ -1,0 +1,40 @@
+name: Scrape Results
+
+on:
+  schedule:
+    # Σάββατο 21:00 ώρα Ελλάδας (UTC+2 καλοκαίρι / UTC+3 χειμώνας)
+    # Χειμώνας (UTC+2): 19:00 UTC
+    - cron: '0 19 * * 6'
+    # Κυριακή 22:00 ώρα Ελλάδας
+    # Χειμώνας (UTC+2): 20:00 UTC
+    - cron: '0 20 * * 0'
+  workflow_dispatch: # Επιτρέπει manual trigger από το GitHub UI
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Run scraper
+        run: node scripts/scrape.js
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet src/data.json || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if changed
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data.json
+          git commit -m "🤖 Auto-update results $(date +'%d/%m/%Y')"
+          git push
