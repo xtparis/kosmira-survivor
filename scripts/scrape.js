@@ -10,10 +10,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const DATA_PATH = join(__dirname, '../src/data.json')
 const URL = 'https://epsip.gr/results/display_schedule.php?league_id=301'
 
-function cleanName(name) {
-  return name.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
-}
-
 function findFixture(fixtures, homeScraped, awayScraped) {
   homeScraped = homeScraped.toUpperCase()
   awayScraped = awayScraped.toUpperCase()
@@ -21,8 +17,12 @@ function findFixture(fixtures, homeScraped, awayScraped) {
   return fixtures.find(f => {
     const fHome = f.home.toUpperCase()
     const fAway = f.away.toUpperCase()
-    const homeMatch = fHome === homeScraped || fHome.includes(homeScraped.substring(0, 8)) || homeScraped.includes(fHome.substring(0, 8))
-    const awayMatch = fAway === awayScraped || fAway.includes(awayScraped.substring(0, 8)) || awayScraped.includes(fAway.substring(0, 8))
+    const homeMatch = fHome === homeScraped ||
+      fHome.includes(homeScraped.substring(0, 8)) ||
+      homeScraped.includes(fHome.substring(0, 8))
+    const awayMatch = fAway === awayScraped ||
+      fAway.includes(awayScraped.substring(0, 8)) ||
+      awayScraped.includes(fAway.substring(0, 8))
     return homeMatch && awayMatch && f.homeGoals === null
   })
 }
@@ -36,16 +36,31 @@ async function scrape() {
   const data = JSON.parse(readFileSync(DATA_PATH, 'utf-8'))
   let updatedCount = 0
 
-  // Παρσάρουμε κάθε row του πίνακα
-  // Format: <tr><td>ΟμάδαΑ - <b>ΟμάδαΒ</b></td>...<td><b>X-Y</b></td></tr>
-  const rowRegex = /<tr[^>]*>.*?<td[^>]*>(?:<a[^>]*>)?(?:<b>)?([^<\-]+?)(?:<\/b>)?\s*-\s*(?:<b>)?([^<]+?)(?:<\/b>)?(?:<\/a>)?<\/td>.*?<td[^>]*>(?:<a[^>]*>)?(?:<b>)?(\d+)-(\d+)(?:\s*α\.α\.)?(?:<\/b>)?(?:<\/a>)?<\/td><\/tr>/gs
+  // Σπάμε σε rows
+  const rows = html.match(/<tr[^>]*>.*?<\/tr>/gs) || []
 
-  let match
-  while ((match = rowRegex.exec(html)) !== null) {
-    const homeName = cleanName(match[1])
-    const awayName = cleanName(match[2])
-    const homeGoals = parseInt(match[3])
-    const awayGoals = parseInt(match[4])
+  for (const row of rows) {
+    // Παίρνουμε τα cells καθαρά από HTML tags
+    const cells = [...row.matchAll(/<td[^>]*>(.*?)<\/td>/gs)]
+      .map(m => m[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim())
+
+    if (cells.length < 7) continue
+
+    const teamCell  = cells[0]  // "ΟμάδαΑ - ΟμάδαΒ"
+    const scoreCell = cells[6]  // "X-Y" ή κενό
+
+    // Skip αν δεν υπάρχει αποτέλεσμα
+    const scoreMatch = scoreCell.match(/^(\d+)-(\d+)/)
+    if (!scoreMatch) continue
+
+    // Skip αν δεν υπάρχουν ομάδες
+    const teamMatch = teamCell.match(/^(.+?)\s*-\s*(.+)$/)
+    if (!teamMatch) continue
+
+    const homeName = teamMatch[1].trim()
+    const awayName = teamMatch[2].trim()
+    const homeGoals = parseInt(scoreMatch[1])
+    const awayGoals = parseInt(scoreMatch[2])
 
     if (homeName.length < 4 || awayName.length < 4) continue
 
