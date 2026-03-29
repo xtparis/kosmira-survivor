@@ -33,7 +33,8 @@ async function scrape() {
 
   const res = await fetch(URL)
   const text = await res.text()
-
+  console.log(text.substring(0, 3000))
+  
   const data = JSON.parse(readFileSync(DATA_PATH, 'utf-8'))
   const allTeams = [...new Set(data.fixtures.flatMap(f => [f.home, f.away]))]
   let updatedCount = 0
