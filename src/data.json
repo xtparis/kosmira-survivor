@@ -10,7 +10,7 @@
   },
   "totalRounds": 28,
   "relegationZone": 4,
-  "lastUpdate": "5/4/2026",
+  "lastUpdate": "18/4/2026",
   "fixtures": [
     {
       "round": 1,
@@ -1003,8 +1003,8 @@
       "round": 21,
       "home": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",
       "away": "Α.Ε. ΓΙΑΝΝΕΝΑ 2004",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 3
     },
     {
       "round": 21,
@@ -1038,8 +1038,8 @@
       "round": 21,
       "home": "Α.Ο.ΚΟΣΜΗΡΑΣ",
       "away": "ΗΦΑΙΣΤΟΣ ΑΒΓΟΥ 2020",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 3
     },
     {
       "round": 22,
