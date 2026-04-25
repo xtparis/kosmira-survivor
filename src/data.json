@@ -10,7 +10,7 @@
   },
   "totalRounds": 28,
   "relegationZone": 4,
-  "lastUpdate": "19/4/2026",
+  "lastUpdate": "25/4/2026",
   "fixtures": [
     {
       "round": 1,
@@ -1024,8 +1024,8 @@
       "round": 21,
       "home": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",
       "away": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "round": 21,
@@ -1045,50 +1045,50 @@
       "round": 22,
       "home": "Α.Ε. ΓΙΑΝΝΕΝΑ 2004",
       "away": "Π.Α.Σ.ΠΕΡΙΒΛΕΠΤΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 8,
+      "awayGoals": 0
     },
     {
       "round": 22,
       "home": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",
       "away": "Α.Ε.ΠΛΑΤΑΝΙΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 0
     },
     {
       "round": 22,
       "home": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",
       "away": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 2,
+      "awayGoals": 1
     },
     {
       "round": 22,
       "home": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ",
       "away": "Α.Σ.ΝΕΟΚΑΙΣΑΡΕΙΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 3
     },
     {
       "round": 22,
       "home": "Α.Ε.ΔΑΦΝΟΥΛΑΣ",
       "away": "Π.Α.Σ.ΚΑΣΤΡΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 1
     },
     {
       "round": 22,
       "home": "ΗΦΑΙΣΤΟΣ ΑΒΓΟΥ 2020",
       "away": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 3
     },
     {
       "round": 22,
       "home": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",
       "away": "Α.Ο.ΚΟΣΜΗΡΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 6,
+      "awayGoals": 1
     },
     {
       "round": 23,
@@ -1101,8 +1101,8 @@
       "round": 23,
       "home": "Π.Α.Σ.ΠΕΡΙΒΛΕΠΤΟΥ",
       "away": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 2,
+      "awayGoals": 2
     },
     {
       "round": 23,
@@ -1115,8 +1115,8 @@
       "round": 23,
       "home": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",
       "away": "Α.Ε.ΔΑΦΝΟΥΛΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 2,
+      "awayGoals": 1
     },
     {
       "round": 23,
@@ -1129,15 +1129,15 @@
       "round": 23,
       "home": "Π.Α.Σ.ΚΑΣΤΡΟΥ",
       "away": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 0
     },
     {
       "round": 23,
       "home": "Α.Ο.ΚΟΣΜΗΡΑΣ",
       "away": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 1
     },
     {
       "round": 24,
