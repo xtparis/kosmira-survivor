@@ -10,7 +10,7 @@
   },
   "totalRounds": 28,
   "relegationZone": 4,
-  "lastUpdate": "3/5/2026",
+  "lastUpdate": "9/5/2026",
   "fixtures": [
     {
       "round": 1,
@@ -954,8 +954,8 @@
       "round": 20,
       "home": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",
       "away": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 2
     },
     {
       "round": 20,
@@ -1192,8 +1192,8 @@
       "round": 25,
       "home": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",
       "away": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "round": 25,
@@ -1206,15 +1206,15 @@
       "round": 25,
       "home": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",
       "away": "ΗΦΑΙΣΤΟΣ ΑΒΓΟΥ 2020",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 2
     },
     {
       "round": 25,
       "home": "Π.Α.Σ.ΠΕΡΙΒΛΕΠΤΟΥ",
       "away": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 4
     },
     {
       "round": 25,
@@ -1227,15 +1227,15 @@
       "round": 25,
       "home": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",
       "away": "Π.Α.Σ.ΚΑΣΤΡΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 2
     },
     {
       "round": 25,
       "home": "Α.Ο.ΚΟΣΜΗΡΑΣ",
       "away": "Α.Σ.ΝΕΟΚΑΙΣΑΡΕΙΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 3
     },
     {
       "round": 26,
