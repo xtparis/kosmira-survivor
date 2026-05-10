@@ -10,7 +10,7 @@
   },
   "totalRounds": 28,
   "relegationZone": 4,
-  "lastUpdate": "9/5/2026",
+  "lastUpdate": "10/5/2026",
   "fixtures": [
     {
       "round": 1,
@@ -1199,8 +1199,8 @@
       "round": 25,
       "home": "Α.Ε. ΓΙΑΝΝΕΝΑ 2004",
       "away": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "round": 25,
@@ -1220,8 +1220,8 @@
       "round": 25,
       "home": "Α.Ε.ΠΛΑΤΑΝΙΑΣ",
       "away": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 3,
+      "awayGoals": 2
     },
     {
       "round": 25,
