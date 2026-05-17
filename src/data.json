@@ -10,7 +10,7 @@
   },
   "totalRounds": 28,
   "relegationZone": 4,
-  "lastUpdate": "16/5/2026",
+  "lastUpdate": "17/5/2026",
   "fixtures": [
     {
       "round": 1,
@@ -1290,15 +1290,15 @@
       "round": 27,
       "home": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ",
       "away": "Α.Ε.ΔΑΦΝΟΥΛΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 3
     },
     {
       "round": 27,
       "home": "Α.Ο. ΒΕΛΙΣΣΑΡΙΟΥ",
       "away": "ΗΦΑΙΣΤΟΣ ΑΒΓΟΥ 2020",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 2
     },
     {
       "round": 27,
@@ -1318,8 +1318,8 @@
       "round": 27,
       "home": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",
       "away": "Α.Σ.ΝΕΟΚΑΙΣΑΡΕΙΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 1,
+      "awayGoals": 2
     },
     {
       "round": 27,
@@ -1332,8 +1332,8 @@
       "round": 27,
       "home": "Α.Ο.ΚΟΣΜΗΡΑΣ",
       "away": "Α.Ε.ΠΛΑΤΑΝΙΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 2
     },
     {
       "round": 28,
