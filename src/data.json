@@ -10,7 +10,7 @@
   },
   "totalRounds": 28,
   "relegationZone": 4,
-  "lastUpdate": "30/5/2026",
+  "lastUpdate": "31/5/2026",
   "fixtures": [
     {
       "round": 1,
@@ -1437,22 +1437,22 @@
       "round": 30,
       "home": "Π.Α.Σ.ΚΑΣΤΡΟΥ",
       "away": "ΗΦΑΙΣΤΟΣ ΑΒΓΟΥ 2020",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 5,
+      "awayGoals": 1
     },
     {
       "round": 30,
       "home": "Α.Σ.ΝΕΟΚΑΙΣΑΡΕΙΑΣ",
       "away": "Α.Ε.ΔΑΦΝΟΥΛΑΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "round": 30,
       "home": "Α.Ο.Ν.ΣΤΑΥΡ.ΣΥΡΡΑΚΟΥ",
       "away": "ΠΑΝΤΕΛ.ΔΡΟΣΟΧΩΡΙΟΥ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 3,
+      "awayGoals": 0
     },
     {
       "round": 30,
@@ -1465,22 +1465,22 @@
       "round": 30,
       "home": "Π.Α.Σ.ΠΕΡΙΒΛΕΠΤΟΥ",
       "away": "Α.Ο.ΣΤΑΥΡΑΚΙΟΥ 2009",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 5
     },
     {
       "round": 30,
       "home": "ΑΣΤΗΡ ΑΜΦΙΘΕΑΣ",
       "away": "Α.Ε. ΓΙΑΝΝΕΝΑ 2004",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 2,
+      "awayGoals": 4
     },
     {
       "round": 30,
       "home": "Α.Ε.Δ.ΠΩΓΩΝΑΤΟΣ",
       "away": "ΠΡΟΟΔ.ΠΕΡΑΜΑΤΟΣ",
-      "homeGoals": null,
-      "awayGoals": null
+      "homeGoals": 0,
+      "awayGoals": 4
     }
   ],
   "pointsAdjustments": [
